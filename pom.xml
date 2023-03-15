@@ -10,9 +10,11 @@
     </parent>
     <groupId>tech.msop</groupId>
     <artifactId>data-backup-sync</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>data-backup-sync</name>
-    <description>data-backup-sync</description>
+    <description>
+        数据备份与同步
+    </description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -62,15 +64,11 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
-                    <excludes>
-                        <exclude>
-                            <groupId>org.projectlombok</groupId>
-                            <artifactId>lombok</artifactId>
-                        </exclude>
-                    </excludes>
+                    <mainClass>tech.msop.data.DataBackupSyncApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>
+        <finalName>${project.artifactId}</finalName>
     </build>
 
 </project>
