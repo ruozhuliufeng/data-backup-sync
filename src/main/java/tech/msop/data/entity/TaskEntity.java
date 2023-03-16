@@ -21,18 +21,18 @@ public class TaskEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
 //    @GeneratedValue(strategy = GenerationType.AUTO, generator = "uuid")
 //    @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "taskId")
+    @Column(name = "id")
     private Long taskId;
 
     /**
      * 任务状态 0：未开始  1：进行中  2：异常终止
      */
-    @Column(name = "task_status")
+    @Column(name = "status")
     private Integer taskStatus;
 
     /**
      * 定时任务表达式
      */
-    @Column(name = "task_cron")
+    @Column(name = "cron")
     private String taskCron;
 }

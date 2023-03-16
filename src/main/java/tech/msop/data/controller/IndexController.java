@@ -15,12 +15,25 @@ public class IndexController {
 
     /**
      * 首页
+     *
      * @param model model
      * @return ModelAndView
      */
-    @GetMapping({"/","/index"})
-    public ModelAndView index(ModelAndView model){
+    @GetMapping({"/", "/index"})
+    public ModelAndView index(ModelAndView model) {
         model.setViewName("index");
+        return model;
+    }
+
+    /**
+     * 主页
+     *
+     * @param model model
+     * @return ModelAndView
+     */
+    @GetMapping("/main")
+    public ModelAndView main(ModelAndView model) {
+        model.setViewName("main");
         return model;
     }
 }
