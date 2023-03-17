@@ -1,10 +1,13 @@
 package tech.msop.data.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import tech.msop.data.entity.DatabaseEntity;
+import tech.msop.data.service.DatabaseService;
 import tech.msop.data.vo.DatabaseQueryVO;
 
 import javax.jws.WebParam;
@@ -16,8 +19,9 @@ import javax.jws.WebParam;
  */
 @Controller
 @RequestMapping("/database")
+@RequiredArgsConstructor
 public class DatabaseController {
-
+    private final DatabaseService databaseService;
     /**
      * 数据库信息页面
      *
@@ -27,6 +31,7 @@ public class DatabaseController {
     @GetMapping({"/", "/index"})
     public ModelAndView getIndex(ModelAndView model) {
 
+        model.setViewName("database_pages");
         return model;
     }
 
@@ -46,12 +51,13 @@ public class DatabaseController {
      * 保存数据
      *
      * @param entity 数据库信息
-     * @param model  模型
      * @return 模型
      */
     @PostMapping("/save")
-    public ModelAndView save(@RequestBody DatabaseEntity entity, ModelAndView model) {
-
+    public ModelAndView save(DatabaseEntity entity) {
+        databaseService.saveDatabase(entity);
+        ModelAndView model = new ModelAndView();
+        model.setViewName("database_pages");
         return model;
     }
 

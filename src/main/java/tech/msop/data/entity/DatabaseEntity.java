@@ -33,12 +33,12 @@ public class DatabaseEntity {
     @Column(name = "port")
     private Integer port;
     /**
-     * 数据库名称
+     * 数据库用户名称
      */
     @Column(name = "username")
     private String username;
     /**
-     * 数据库密码
+     * 数据库用户密码
      */
     @Column(name = "password")
     private String password;
@@ -48,9 +48,14 @@ public class DatabaseEntity {
     @Column(name = "database_name", unique = true)
     private String databaseName;
     /**
-     * 连接的数据库
+     * 状态 0：禁用 1：启用
      */
-    @Column(name = "database")
-    private String database;
+    @Column(name = "status")
+    private Integer status;
+    /**
+     * 数据库类型
+     */
+    @Column(name = "type")
+    private Integer type;
 
 }

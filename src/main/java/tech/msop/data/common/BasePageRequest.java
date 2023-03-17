@@ -1,4 +1,4 @@
-package tech.msop.data.entity;
+package tech.msop.data.common;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -12,9 +12,9 @@ public class BasePageRequest {
     /**
      * 当前页
      */
-    private Integer start;
+    private Integer start = 0;
     /**
      * 每页数量
      */
-    private Integer size;
+    private Integer size = 1;
 }
