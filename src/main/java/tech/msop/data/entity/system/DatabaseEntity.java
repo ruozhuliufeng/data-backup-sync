@@ -1,4 +1,4 @@
-package tech.msop.data.entity;
+package tech.msop.data.entity.system;
 
 import lombok.Data;
 

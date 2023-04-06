@@ -1,16 +1,12 @@
 package tech.msop.data.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
-import tech.msop.data.entity.DatabaseEntity;
+import tech.msop.data.entity.system.DatabaseEntity;
 import tech.msop.data.service.DatabaseService;
 import tech.msop.data.vo.DatabaseQueryVO;
-
-import javax.jws.WebParam;
 
 /**
  * 数据库信息处理

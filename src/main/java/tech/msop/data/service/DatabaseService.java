@@ -1,6 +1,6 @@
 package tech.msop.data.service;
 
-import tech.msop.data.entity.DatabaseEntity;
+import tech.msop.data.entity.system.DatabaseEntity;
 
 public interface DatabaseService{
     /**

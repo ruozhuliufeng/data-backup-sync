@@ -14,7 +14,7 @@ public enum DatabaseEnum {
     /**
      * MySQL 数据库
      */
-    MySQL(0, "MySQL", "com.mysql.cj.jdbc.Driver", "jdbc://"),
+    MySQL(0, "MySQL", "com.mysql.cj.jdbc.Driver", "jdbc:mysql://%s:%s/%s?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=Asia/Shanghai"),
     /**
      * Oracle 数据库
      */
@@ -45,13 +45,12 @@ public enum DatabaseEnum {
      * @return 数据库信息
      */
     public DatabaseEnum of(Integer type) {
-        DatabaseEnum databaseEnum = null;
         for (DatabaseEnum data : values()) {
             if (data.getType() == type) {
                 return data;
             }
         }
-        return databaseEnum;
+        return null;
     }
 
 }

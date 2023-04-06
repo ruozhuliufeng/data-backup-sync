@@ -1,4 +1,4 @@
-package tech.msop.data.entity;
+package tech.msop.data.entity.task;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
