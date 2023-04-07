@@ -43,7 +43,7 @@ public class DatabaseEntity {
     @Column(name = "password")
     private String password;
     /**
-     * 数据库名称
+     * 数据库标识
      */
     @Column(name = "database_name", unique = true)
     private String databaseName;
@@ -54,6 +54,10 @@ public class DatabaseEntity {
     private Integer status;
     /**
      * 数据库类型
+     * 0: MySQL <br/>
+     * 1: Oracle <br/>
+     * 2: SqlServer <br/>
+     * 3: Postgres <br/>
      */
     @Column(name = "type")
     private Integer type;
