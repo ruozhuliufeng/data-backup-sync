@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
+import tech.msop.core.log.annotation.AuditLog;
 
 /**
  * 首页控制器
@@ -20,6 +21,7 @@ public class IndexController {
      * @return ModelAndView
      */
     @GetMapping({"/", "/index"})
+    @AuditLog("首页访问")
     public ModelAndView index(ModelAndView model) {
         model.setViewName("index");
         return model;

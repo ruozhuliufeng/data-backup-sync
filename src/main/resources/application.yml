@@ -1,6 +1,8 @@
 server:
   port: 5525
 spring:
+  application:
+    name: data-backup-sync
   datasource:
     druid:
       initial-size: 5
@@ -56,4 +58,11 @@ spring:
     cache: false
     # 是否优先从文件系统加载template，以支持热加载，默认为true
     prefer-file-system-access: true
-
+ms:
+  audit:
+    log:
+      console: true
+      log-type: logger
+      level: none
+  file-storage:
+    default-platform: "local"

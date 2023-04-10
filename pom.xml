@@ -17,7 +17,7 @@
     </description>
     <properties>
         <java.version>1.8</java.version>
-        <ms.tool.version>0.2.2.RELEASE</ms.tool.version>
+        <ms.tool.version>0.2.3.RELEASE</ms.tool.version>
     </properties>
 
     <!-- 版本管理 -->
@@ -74,7 +74,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-boot-starter</artifactId>
+        </dependency>
         <!-- 云存储 -->
         <!-- WebDAV -->
         <dependency>
@@ -113,7 +116,16 @@
             <artifactId>esdk-obs-java</artifactId>
         </dependency>
         <!-- MSToolbox -->
-
+        <!-- 文件存储 -->
+        <dependency>
+            <groupId>tech.msop</groupId>
+            <artifactId>ms-file-storage-starter</artifactId>
+        </dependency>
+        <!-- 日志记录 -->
+        <dependency>
+            <groupId>tech.msop</groupId>
+            <artifactId>ms-log-starter</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

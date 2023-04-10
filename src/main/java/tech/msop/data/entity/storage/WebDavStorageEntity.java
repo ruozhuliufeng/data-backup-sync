@@ -1,6 +1,9 @@
 package tech.msop.data.entity.storage;
 
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -9,6 +12,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "tb_storage_webdav")
+//@TableName("tb_storage_webdav")
 public class WebDavStorageEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     /**

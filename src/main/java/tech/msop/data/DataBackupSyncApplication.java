@@ -1,13 +1,17 @@
 package tech.msop.data;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.util.ObjectUtils;
 import tech.msop.data.constants.DataBackupConstant;
 import tech.msop.data.enums.DatabaseEnum;
 
 import java.util.Properties;
 
+@EnableScheduling
+@MapperScan("tech.msop.data.mapper")
 @SpringBootApplication
 public class DataBackupSyncApplication {
 
