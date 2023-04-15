@@ -1,7 +1,6 @@
 package tech.msop.data.task;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.support.DefaultListableBeanFactory;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.ApplicationContext;
@@ -26,10 +25,10 @@ public class ConfigUpdateTask implements ApplicationRunner {
     private final MsFileStorageProperties properties;
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        storageHandle(properties);
+//        storageHandle(properties);
     }
 
-    @Scheduled(cron = "0 * * * * ?")
+//    @Scheduled(cron = "0 * * * * ?")
     public void scheduleTask(){
         storageHandle(properties);
     }

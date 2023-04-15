@@ -3,17 +3,24 @@ package tech.msop.data.entity.storage;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
+import tech.msop.core.tool.utils.DateUtil;
+import tech.msop.mybatis.model.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "tb_storage_webdav")
-//@TableName("tb_storage_webdav")
-public class WebDavStorageEntity implements Serializable {
+@TableName("tb_storage_webdav")
+public class WebDavStorageEntity extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * 主键ID
@@ -21,6 +28,7 @@ public class WebDavStorageEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @TableId(value = "id",type = IdType.ASSIGN_ID)
     private Long id;
     /**
      * 服务器地址，注意以"/"结尾
@@ -30,8 +38,8 @@ public class WebDavStorageEntity implements Serializable {
     /**
      * 用户名
      */
-    @Column(name = "user")
-    private String user;
+    @Column(name = "username")
+    private String username;
     /**
      * 密码
      */
@@ -46,7 +54,7 @@ public class WebDavStorageEntity implements Serializable {
      * 启用存储
      */
     @Column(name = "enable_storage")
-    private Boolean enableStorage;
+    private Boolean enableStorage = false;
     /**
      * 存储平台
      */
@@ -61,5 +69,46 @@ public class WebDavStorageEntity implements Serializable {
      * 存储路径，上传的文件都会存储在这个路径下面，注意以"/"结尾
      */
     @Column(name = "storage_path")
-    private String storagePath = "/";
+    private String storagePath = "";
+
+    /**
+     * 创建人
+     */
+    @Column(name = "create_user")
+    private Long createUser;
+    /**
+     * 创建部门
+     */
+    @Column(name = "create_dept")
+    private Long createDept;
+    /**
+     * 创建时间
+     */
+    @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
+    @Column(name = "create_time")
+    private Date createTime;
+    /**
+     * 修改人
+     */
+    @Column(name = "update_user")
+    private Long updateUser;
+    /**
+     * 创建时间
+     */
+    @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    /**
+     * 业务状态 [1:正常]
+     */
+    @Column(name = "status")
+    private Integer status;
+
+    /**
+     * 状态[0:未删除 1：已删除]
+     */
+    @TableLogic
+    @Column(name = "is_deleted")
+    private Integer isDeleted;
 }

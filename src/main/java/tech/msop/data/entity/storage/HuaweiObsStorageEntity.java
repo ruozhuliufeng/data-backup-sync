@@ -1,5 +1,8 @@
 package tech.msop.data.entity.storage;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,6 +14,7 @@ import java.io.Serializable;
 @Data
 @Entity
 @Table(name = "tb_storage_obs")
+@TableName("tb_storage_obs")
 public class HuaweiObsStorageEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
@@ -19,6 +23,7 @@ public class HuaweiObsStorageEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
+    @TableId(value = "id",type = IdType.ASSIGN_ID)
     private Long id;
     /**
      * 访问密钥
