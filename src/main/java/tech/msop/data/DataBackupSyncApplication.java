@@ -10,7 +10,6 @@ import tech.msop.data.enums.DatabaseEnum;
 
 import java.util.Properties;
 
-//@MapperScan("tech.msop.data.mapper")
 @EnableScheduling
 @SpringBootApplication
 public class DataBackupSyncApplication {

@@ -2,20 +2,27 @@ package tech.msop.data.entity.storage;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import org.springframework.format.annotation.DateTimeFormat;
+import tech.msop.core.tool.utils.DateUtil;
+import tech.msop.mybatis.model.BaseEntity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 腾讯云 Cos 配置
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "tb_storage_cos")
 @TableName("tb_storage_cos")
-public class TencentCosStorageEntity implements Serializable {
+public class TencentCosStorageEntity extends BaseEntity implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
      * 主键ID
@@ -70,4 +77,45 @@ public class TencentCosStorageEntity implements Serializable {
      */
     @Column(name = "base_path")
     private String basePath = "";
+
+    /**
+     * 创建人
+     */
+    @Column(name = "create_user")
+    private Long createUser;
+    /**
+     * 创建部门
+     */
+    @Column(name = "create_dept")
+    private Long createDept;
+    /**
+     * 创建时间
+     */
+    @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
+    @Column(name = "create_time")
+    private Date createTime;
+    /**
+     * 修改人
+     */
+    @Column(name = "update_user")
+    private Long updateUser;
+    /**
+     * 创建时间
+     */
+    @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
+    @Column(name = "update_time")
+    private Date updateTime;
+
+    /**
+     * 业务状态 [1:正常]
+     */
+    @Column(name = "status")
+    private Integer status;
+
+    /**
+     * 状态[0:未删除 1：已删除]
+     */
+    @TableLogic
+    @Column(name = "is_deleted")
+    private Integer isDeleted;
 }

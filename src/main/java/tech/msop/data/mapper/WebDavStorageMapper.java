@@ -5,5 +5,4 @@ import tech.msop.mybatis.mapper.SuperMapper;
 
 public interface WebDavStorageMapper extends SuperMapper<WebDavStorageEntity> {
 
-    int verify();
 }
