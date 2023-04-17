@@ -30,7 +30,7 @@ public class QiniuKodoStorageController {
      * 详情
      *
      * @param entity 查询条件
-     * @return WebDAV 存储信息
+     * @return KODO 存储信息
      */
     @GetMapping("/detail")
     public Result<QiniuKodoStorageEntity> detail(QiniuKodoStorageEntity entity) {
@@ -52,9 +52,9 @@ public class QiniuKodoStorageController {
     }
 
     /**
-     * 新增 WebDAV 存储信息
+     * 新增 KODO 存储信息
      *
-     * @param entity WebDAV 存储信息信息
+     * @param entity KODO 存储信息信息
      * @return Result
      */
     @PostMapping("/save")
@@ -64,9 +64,9 @@ public class QiniuKodoStorageController {
     }
 
     /**
-     * 修改 WebDAV 存储信息
+     * 修改 KODO 存储信息
      *
-     * @param entity WebDAV 存储信息信息
+     * @param entity KODO 存储信息信息
      * @return Result
      */
     @PostMapping("/update")
@@ -76,9 +76,9 @@ public class QiniuKodoStorageController {
     }
 
     /**
-     * 新增或修改 WebDAV 存储信息
+     * 新增或修改 KODO 存储信息
      *
-     * @param entity WebDAV 存储信息信息
+     * @param entity KODO 存储信息信息
      * @return Result
      */
     @PostMapping("/submit")
@@ -88,9 +88,9 @@ public class QiniuKodoStorageController {
     }
 
     /**
-     * 逻辑删除 WebDAV 存储信息
+     * 逻辑删除 KODO 存储信息
      *
-     * @param ids WebDAV 存储信息ID列表
+     * @param ids KODO 存储信息ID列表
      * @return Result
      */
     @PostMapping("/remove")

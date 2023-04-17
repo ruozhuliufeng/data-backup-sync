@@ -30,7 +30,7 @@ public class TencentCosStorageController {
      * 详情
      *
      * @param entity 查询条件
-     * @return WebDAV 存储信息
+     * @return COS 存储信息
      */
     @GetMapping("/detail")
     public Result<TencentCosStorageEntity> detail(TencentCosStorageEntity entity) {
@@ -52,9 +52,9 @@ public class TencentCosStorageController {
     }
 
     /**
-     * 新增 WebDAV 存储信息
+     * 新增 COS 存储信息
      *
-     * @param entity WebDAV 存储信息信息
+     * @param entity COS 存储信息信息
      * @return Result
      */
     @PostMapping("/save")
@@ -64,9 +64,9 @@ public class TencentCosStorageController {
     }
 
     /**
-     * 修改 WebDAV 存储信息
+     * 修改 COS 存储信息
      *
-     * @param entity WebDAV 存储信息信息
+     * @param entity COS 存储信息信息
      * @return Result
      */
     @PostMapping("/update")
@@ -76,9 +76,9 @@ public class TencentCosStorageController {
     }
 
     /**
-     * 新增或修改 WebDAV 存储信息
+     * 新增或修改 COS 存储信息
      *
-     * @param entity WebDAV 存储信息信息
+     * @param entity COS 存储信息信息
      * @return Result
      */
     @PostMapping("/submit")
@@ -88,9 +88,9 @@ public class TencentCosStorageController {
     }
 
     /**
-     * 逻辑删除 WebDAV 存储信息
+     * 逻辑删除 COS 存储信息
      *
-     * @param ids WebDAV 存储信息ID列表
+     * @param ids COS 存储信息ID列表
      * @return Result
      */
     @PostMapping("/remove")
