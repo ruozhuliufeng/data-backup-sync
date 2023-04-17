@@ -56,22 +56,22 @@ public class AliOssStorageEntity extends BaseEntity implements Serializable {
      * 访问域名
      */
     @Column(name = "domain")
-    private String domain = "";
+    private String domain;
     /**
      * 启用存储
      */
     @Column(name = "enable_storage")
-    private Boolean enableStorage = false;
+    private Boolean enableStorage;
     /**
      * 存储平台标识
      */
     @Column(name = "platform", unique = true)
-    private String platform = "";
+    private String platform;
     /**
      * 基础路径
      */
     @Column(name = "base_path")
-    private String basePath = "";
+    private String basePath;
 
     /**
      * 创建人
