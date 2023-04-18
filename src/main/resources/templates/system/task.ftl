@@ -52,18 +52,8 @@
                                 width="240">
                         </el-table-column>
                         <el-table-column
-                                prop="storageId"
-                                label="云端存储ID"
-                                width="200">
-                        </el-table-column>
-                        <el-table-column
-                                prop="bucketName"
-                                label="存储桶名称"
-                                width="200">
-                        </el-table-column>
-                        <el-table-column
-                                prop="domain"
-                                label="访问域名"
+                                prop="storageName"
+                                label="云端存储标识"
                                 width="200">
                         </el-table-column>
                         <el-table-column
@@ -76,13 +66,9 @@
                             </template>
                         </el-table-column>
                         <el-table-column
+                                prop="taskTypeName"
                                 label="任务类型"
                                 width="100">
-                            <template slot-scope="scope">
-                                <el-tag size="small" v-if="scope.row.taskType===0" type="success">指定文件同步</el-tag>
-                                <el-tag size="small" v-else-if="scope.row.taskType===1" type="success">指定文件夹同步</el-tag>
-                                <el-tag size="small" v-else-if="scope.row.taskType===2" type="success">数据库备份并同步</el-tag>
-                            </template>
                         </el-table-column>
                         <el-table-column
                                 prop="syncPath"
@@ -90,12 +76,12 @@
                                 width="100">
                         </el-table-column>
                         <el-table-column
-                                prop="databaseId"
-                                label="数据库ID"
-                                width="180">
+                                prop="databaseName"
+                                label="数据库标识"
+                                width="200">
                         </el-table-column>
                         <el-table-column
-                                prop="databaseName"
+                                prop="database"
                                 label="需要同步的数据库表"
                                 width="100">
                         </el-table-column>

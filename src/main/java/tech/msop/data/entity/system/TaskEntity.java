@@ -50,12 +50,23 @@ public class TaskEntity extends BaseEntity {
     @Column(name = "cron")
     private String taskCron;
     /**
+     * 云端存储类别<br/>
+     * 0：阿里云 OSS<br/>
+     * 1：百度云 BOS<br/>
+     * 2：华为云 OBS<br/>
+     * 3：七牛云 KODO<br/>
+     * 4：腾讯云 COS<br/>
+     * 5：WEBDAV<br/>
+     */
+    @Column(name = "storage_type")
+    private Integer storageType;
+    /**
      * 云端存储
      */
     @Column(name = "storage_id")
     private Long storageId;
     /**
-     * 任务类型
+     * 任务类型<br/>
      * 0：指定文件同步<br/>
      * 1：指定文件夹同步<br/>
      * 2：数据库备份并同步<br/>
@@ -79,8 +90,8 @@ public class TaskEntity extends BaseEntity {
      * 1: 指定数据库,如 sys_user、sys_role 等
      * 2: 全部数据库,如 *
      */
-    @Column(name="databaseName")
-    private String database_name;
+    @Column(name="database")
+    private String database;
 
 
     /**

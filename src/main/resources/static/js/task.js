@@ -96,7 +96,7 @@ var vm = new Vue({
     methods: {
 
         queryList() {
-            const url = "/storage/task/list"
+            const url = "/system/task/list"
             const queryParam = {
                 current: this.current,
                 size: this.size,
@@ -113,7 +113,7 @@ var vm = new Vue({
             })
         },
         queryTask(id) {
-            const url = '/storage/task/detail?id=' + id
+            const url = '/system/task/detail?id=' + id
             axios.get(url, {responseType: 'json'}).then(res => {
                 this.task = res.data.data
             }).catch(error => {
@@ -121,7 +121,7 @@ var vm = new Vue({
             })
         },
         submit() {
-            const url = '/storage/task/submit'
+            const url = '/system/task/submit'
             axios.post(url, this.webdav).then(res => {
                 this.dialogVisible = false
                 this.queryList()
@@ -136,7 +136,7 @@ var vm = new Vue({
             if (id===null){
                 id = this.multipleSelection.join(',')
             }
-            const url = '/storage/task/remove?ids='+id
+            const url = '/system/task/remove?ids='+id
             axios.post(url).then(res => {
                 // 刷新列表
                 this.queryList()

@@ -10,6 +10,8 @@ import tech.msop.core.tool.model.Result;
 import tech.msop.core.tool.utils.Func;
 import tech.msop.data.entity.system.TaskEntity;
 import tech.msop.data.service.system.TaskService;
+import tech.msop.data.vo.TaskVO;
+import tech.msop.data.wrapper.TaskWrapper;
 import tech.msop.mybatis.support.Condition;
 import tech.msop.mybatis.support.Query;
 
@@ -57,9 +59,9 @@ public class TaskController {
      * @return 分页数据
      */
     @GetMapping("/list")
-    public Result<IPage<TaskEntity>> list(TaskEntity entity, Query query) {
+    public Result<IPage<TaskVO>> list(TaskEntity entity, Query query) {
         IPage<TaskEntity> pages = taskService.page(Condition.getPage(query), Condition.getQueryWrapper(entity));
-        return Result.succeed(pages);
+        return Result.succeed(TaskWrapper.build().pageVO(pages));
     }
 
     /**

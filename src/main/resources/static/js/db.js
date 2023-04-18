@@ -96,7 +96,7 @@ var vm = new Vue({
     methods: {
 
         queryList() {
-            const url = "/storage/database/list"
+            const url = "/system/database/list"
             const queryParam = {
                 current: this.current,
                 size: this.size,
@@ -113,7 +113,7 @@ var vm = new Vue({
             })
         },
         queryDb(id) {
-            const url = '/storage/database/detail?id=' + id
+            const url = '/system/database/detail?id=' + id
             axios.get(url, {responseType: 'json'}).then(res => {
                 this.db = res.data.data
             }).catch(error => {
@@ -121,7 +121,7 @@ var vm = new Vue({
             })
         },
         submit() {
-            const url = '/storage/database/submit'
+            const url = '/system/database/submit'
             axios.post(url, this.db).then(res => {
                 this.dialogVisible = false
                 this.queryList()
@@ -136,7 +136,7 @@ var vm = new Vue({
             if (id===null){
                 id = this.multipleSelection.join(',')
             }
-            const url = '/storage/database/remove?ids='+id
+            const url = '/system/database/remove?ids='+id
             axios.post(url).then(res => {
                 // 刷新列表
                 this.queryList()

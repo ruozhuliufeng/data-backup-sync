@@ -56,7 +56,7 @@
 										<span>数据备份</span>
 									</a>
 									<ul class="nav nav-subnav">
-										<li> <a class="multitabs" href="/database/index">数据库信息</a> </li>
+										<li> <a class="multitabs" href="/system/database/index">数据库信息</a> </li>
 									</ul>
 								</li>
 								<li class="nav-item nav-item-has-subnav">
@@ -65,7 +65,7 @@
 										<span>同步任务</span>
 									</a>
 									<ul class="nav nav-subnav">
-										<li> <a class="multitabs" href="/task/index"> 任务信息 </a> </li>
+										<li> <a class="multitabs" href="/system/task/index"> 任务信息 </a> </li>
 									</ul>
 								</li>
 								<li class="nav-item nav-item-has-subnav">
