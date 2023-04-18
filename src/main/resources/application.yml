@@ -53,7 +53,7 @@ spring:
     # Content-Type 的值
     content-type: text/html
     # 设定模板的后缀
-    suffix: .html
+    suffix: .ftl
     # 是否启用模板缓存
     cache: false
     # 是否优先从文件系统加载template，以支持热加载，默认为true

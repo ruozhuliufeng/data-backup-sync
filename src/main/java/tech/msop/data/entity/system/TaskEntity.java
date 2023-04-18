@@ -32,12 +32,17 @@ public class TaskEntity extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     @TableId(value = "id",type = IdType.ASSIGN_ID)
-    private Long taskId;
+    private Long id;
+    /**
+     * 任务名称
+     */
+    @Column(name = "task_name")
+    private String taskName;
 
     /**
      * 任务状态 0：未开始  1：进行中  2：异常终止
      */
-    @Column(name = "status")
+    @Column(name = "task_status")
     private Integer taskStatus;
     /**
      * 定时任务表达式

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import tech.msop.core.tool.model.Result;
 import tech.msop.core.tool.utils.Func;
 import tech.msop.data.entity.storage.BaiduBosStorageEntity;
@@ -26,6 +27,16 @@ import javax.validation.Valid;
 public class BaiduBosStorageController {
     private final BaiduBosStorageService storageService;
 
+    /**
+     * 首页跳转
+     * @param view 页面视图
+     * @return 视图
+     */
+    @GetMapping({"/","/index"})
+    public ModelAndView index(ModelAndView view){
+        view.setViewName("storage/bos");
+        return view;
+    }
     /**
      * 详情
      *

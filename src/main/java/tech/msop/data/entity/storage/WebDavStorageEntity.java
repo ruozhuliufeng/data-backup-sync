@@ -93,7 +93,7 @@ public class WebDavStorageEntity extends BaseEntity implements Serializable {
     @Column(name = "update_user")
     private Long updateUser;
     /**
-     * 创建时间
+     * 更新时间
      */
     @DateTimeFormat(pattern = DateUtil.PATTERN_DATETIME)
     @Column(name = "update_time")
