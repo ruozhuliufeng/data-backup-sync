@@ -16,8 +16,8 @@
                 <div class="card-body">
                     <div class="card-search mb-2-5">
                         <el-form :inline="true" :model="searchForm" ref="searchForm" class="demo-form-inline">
-                            <el-form-item label="存储标识" label-width="120px">
-                                <el-input v-model="searchForm.taskName" placeholder="请输入存储标识"/>
+                            <el-form-item label="任务名称" label-width="120px">
+                                <el-input v-model="searchForm.taskName" placeholder="请输入任务名称"/>
                             </el-form-item>
                             <el-form-item>
                                 <el-button type="primary" @click="queryList">查询</el-button>
@@ -81,7 +81,7 @@
                                 width="200">
                         </el-table-column>
                         <el-table-column
-                                prop="database"
+                                prop="dbName"
                                 label="需要同步的数据库表"
                                 width="100">
                         </el-table-column>
@@ -117,40 +117,56 @@
                 </el-pagination>
             </div>
         </div>
-        <el-dialog title="任务 信息"
+        <el-dialog title="任务信息"
                    :visible.sync="dialogVisible"
                    width="50%"
                    center>
             <el-form :model="task" :rules="rules" ref="task">
-                <el-form-item label="访问密钥" label-width="120px">
-                    <el-input v-model="task.accessKey" autocomplete="off" placeholder="请输入密码"/>
+                <el-form-item label="任务名称" label-width="120px">
+                    <el-input v-model="task.taskName" autocomplete="off" placeholder="请输入任务名称"/>
                 </el-form-item>
-                <el-form-item label="密钥" label-width="120px">
-                    <el-input v-model="task.secretKey" autocomplete="off" placeholder="请输入密码"/>
-                </el-form-item>
-                <el-form-item label="端点" label-width="120px">
-                    <el-input v-model="task.endPoint" autocomplete="off" placeholder="请输入密码"/>
-                </el-form-item>
-                <el-form-item label="存储桶名称" label-width="120px">
-                    <el-input v-model="task.bucketName" autocomplete="off" placeholder="请输入密码"/>
-                </el-form-item>
-                <el-form-item label="访问域名" label-width="120px">
-                    <el-input v-model="task.domain" autocomplete="off" placeholder="请输入访问域名"/>
-                </el-form-item>
-                <el-form-item label="启用存储" label-width="120px">
-                    <el-select v-model="task.enableStorage" placeholder="请选择是否启用">
-                        <el-option v-for="item in options"
+                <el-form-item label="任务状态" label-width="120px">
+                    <el-select v-model="task.taskStatus" placeholder="请选择任务状态">
+                        <el-option v-for="item in statusList"
                                    :key="item.value"
                                    :label="item.label"
                                    :value="item.value"
                         ></el-option>
                     </el-select>
                 </el-form-item>
-                <el-form-item label="存储平台标识" label-width="120px">
-                    <el-input v-model="task.platform" autocomplete="off" placeholder="请输入存储平台唯一标识"/>
+                <el-form-item label="定时任务表达式" label-width="120px">
+                    <el-input v-model="task.taskCron" autocomplete="off" placeholder="请输入定时任务表达式"/>
                 </el-form-item>
-                <el-form-item label="基础路径" label-width="120px">
-                    <el-input v-model="task.basePath" autocomplete="off" placeholder="请输入基础路径"/>
+                <el-form-item label="云端存储" label-width="120px">
+                    <el-cascader
+                            v-model="task.storage"
+                            :options="storageOptions"
+                            :props="{value:'id',label:'name'}"
+                            @change="handleChange"></el-cascader>
+                </el-form-item>
+                <el-form-item label="任务类型" label-width="120px">
+                    <el-select v-model="task.taskType" placeholder="请选择任务类型">
+                        <el-option v-for="item in typeList"
+                                   :key="item.value"
+                                   :label="item.label"
+                                   :value="item.value"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="同步文件(夹)" label-width="120px">
+                    <el-input v-model="task.syncPath" autocomplete="off" placeholder="请输入同步文件,文件夹以/结尾"/>
+                </el-form-item>
+                <el-form-item label="数据库" label-width="120px">
+                    <el-select v-model="task.databaseId" placeholder="请选择数据库">
+                        <el-option v-for="item in databaseOptions"
+                                   :key="item.id"
+                                   :label="item.name"
+                                   :value="item.id"
+                        ></el-option>
+                    </el-select>
+                </el-form-item>
+                <el-form-item label="数据库表" label-width="120px">
+                    <el-input v-model="task.dbName" autocomplete="off" placeholder="请输入需要同步的数据库表"/>
                 </el-form-item>
                 <el-input v-model="task.id" type="hidden"/>
             </el-form>

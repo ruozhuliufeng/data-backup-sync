@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="tech.msop.data.mapper.TaskMapper">
+
+<select id="queryStorageOptionList" resultType="tech.msop.data.entity.system.Option">
+    select 1 as pid,
+        id,
+        platform as name
+        from tb_storage_oss
+    where status = 1
+    and is_deleted = 0
+    union all
+    select 2 as pid,
+        id,
+        platform as name
+        from tb_storage_bos
+    where status = 1
+    and is_deleted = 0
+    union all
+    select 3 as pid,
+        id,
+        platform as name
+        from tb_storage_obs
+    where status = 1
+    and is_deleted = 0
+    union all
+    select 4 as pid,
+        id,
+        platform as name
+        from tb_storage_kodo
+    where status = 1
+    and is_deleted = 0
+    union all
+    select 5 as pid,
+        id,
+        platform as name
+        from tb_storage_cos
+    where status = 1
+    and is_deleted = 0
+    union all
+    select 6 as pid,
+        id,
+        platform as name
+        from tb_storage_webdav
+    where status = 1
+    and is_deleted = 0
+</select>
+</mapper>

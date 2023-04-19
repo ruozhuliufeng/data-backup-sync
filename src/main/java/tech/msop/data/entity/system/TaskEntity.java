@@ -47,7 +47,7 @@ public class TaskEntity extends BaseEntity {
     /**
      * 定时任务表达式
      */
-    @Column(name = "cron")
+    @Column(name = "task_cron")
     private String taskCron;
     /**
      * 云端存储类别<br/>
@@ -90,8 +90,8 @@ public class TaskEntity extends BaseEntity {
      * 1: 指定数据库,如 sys_user、sys_role 等
      * 2: 全部数据库,如 *
      */
-    @Column(name="database")
-    private String database;
+    @Column(name="db_name")
+    private String dbName;
 
 
     /**

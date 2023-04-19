@@ -9,11 +9,13 @@ import org.springframework.web.servlet.ModelAndView;
 import tech.msop.core.tool.model.Result;
 import tech.msop.core.tool.utils.Func;
 import tech.msop.data.entity.system.DatabaseEntity;
+import tech.msop.data.entity.system.Option;
 import tech.msop.data.service.system.DatabaseService;
 import tech.msop.mybatis.support.Condition;
 import tech.msop.mybatis.support.Query;
 
 import javax.validation.Valid;
+import java.util.List;
 
 /**
  * AliOSS 配置控制器
@@ -29,14 +31,16 @@ public class DatabaseController {
 
     /**
      * 首页跳转
+     *
      * @param view 页面视图
      * @return 视图
      */
-    @GetMapping({"/","/index"})
-    public ModelAndView index(ModelAndView view){
+    @GetMapping({"/", "/index"})
+    public ModelAndView index(ModelAndView view) {
         view.setViewName("system/database");
         return view;
     }
+
     /**
      * 详情
      *
@@ -108,5 +112,16 @@ public class DatabaseController {
     public Result remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
         databaseService.deleteLogic(Func.toLongList(ids));
         return Result.succeed();
+    }
+
+    /**
+     * 查询数据库信息 选项
+     *
+     * @return 数据库列表
+     */
+    @GetMapping("/query/database/option")
+    public Result<List<Option>> queryDatabaseOptionList() {
+        List<Option> list = databaseService.queryDatabaseOptionList();
+        return Result.succeed(list);
     }
 }

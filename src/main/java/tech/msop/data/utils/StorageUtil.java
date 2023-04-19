@@ -75,18 +75,25 @@ public class StorageUtil {
         switch (typeEnum) {
             case WEBDAV:
                 storageName = getWebDavStorageService().getById(taskEntity.getStorageId()).getPlatform();
+                break;
             case ALI_OSS:
                 storageName = getAliOssStorageService().getById(taskEntity.getStorageId()).getPlatform();
+                break;
             case BAIDU_BOS:
                 storageName = getBaiduBosStorageService().getById(taskEntity.getStorageId()).getPlatform();
+                break;
             case HUAWEI_OBS:
                 storageName = getHuaweiObsStorageService().getById(taskEntity.getStorageId()).getPlatform();
+                break;
             case QINIU_KODO:
                 storageName = getQiniuKodoStorageService().getById(taskEntity.getStorageId()).getPlatform();
+                break;
             case TENCENT_COS:
                 storageName = getTencentCosStorageService().getById(taskEntity.getStorageId()).getPlatform();
+                break;
             default:
                 storageName = "";
+                break;
         }
         return storageName;
     }

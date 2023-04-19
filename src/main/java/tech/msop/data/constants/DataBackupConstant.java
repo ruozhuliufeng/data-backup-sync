@@ -40,4 +40,8 @@ public interface DataBackupConstant {
      * 默认备份文件目录
      */
     String DEFAULT_BACKUP_DIR = "/data/backup";
+    /**
+     * ID 标识
+     */
+    String ID_FLAG = "id";
 }

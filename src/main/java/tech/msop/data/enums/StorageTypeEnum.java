@@ -11,12 +11,12 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum StorageTypeEnum {
-    ALI_OSS(0, "阿里云OSS"),
-    BAIDU_BOS(1, "百度云BOS"),
-    HUAWEI_OBS(2, "华为云OBS"),
-    QINIU_KODO(3, "七牛云KODO"),
-    TENCENT_COS(4, "腾讯云COS"),
-    WEBDAV(5, "WEBDAV"),
+    ALI_OSS(1, "阿里云OSS"),
+    BAIDU_BOS(2, "百度云BOS"),
+    HUAWEI_OBS(3, "华为云OBS"),
+    QINIU_KODO(4, "七牛云KODO"),
+    TENCENT_COS(5, "腾讯云COS"),
+    WEBDAV(6, "WEBDAV"),
     DEFAULT(999, ""),
     ;
     final int type;

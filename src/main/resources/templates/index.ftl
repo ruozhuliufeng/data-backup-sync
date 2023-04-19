@@ -74,7 +74,7 @@
 										<span>其他信息</span>
 									</a>
 									<ul class="nav nav-subnav">
-										<li> <a class="multitabs" href="/log/index">日志记录</a> </li>
+										<li> <a class="multitabs" href="#">日志记录</a> </li>
 									</ul>
 								</li>
 							</ul>
