@@ -3,20 +3,23 @@ package tech.msop.data.task;
 import lombok.AllArgsConstructor;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
-import org.springframework.context.ApplicationContext;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-import tech.msop.core.file.storage.properties.MsFileStorageProperties;
+import tech.msop.core.file.storage.FileStorageService;
+import tech.msop.core.file.storage.platform.*;
 import tech.msop.core.tool.utils.BeanUtil;
 import tech.msop.core.tool.utils.CollectionUtil;
 import tech.msop.data.entity.storage.*;
 import tech.msop.data.service.storage.*;
 
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 /**
- * 更新云存储配置信息
+ * 自动更新云存储配置信息
+ *
+ * @author ruozhuliufeng
  */
 @Component
 @AllArgsConstructor
@@ -28,79 +31,89 @@ public class ConfigUpdateTask implements ApplicationRunner {
     private final HuaweiObsStorageService huaweiObsStorageService;
     private final QiniuKodoStorageService qiniuKodoStorageService;
     private final TencentCosStorageService tencentCosStorageService;
-    private final MsFileStorageProperties properties;
+    private final FileStorageService fileStorageService;
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        storageHandle(properties);
+        storageHandle();
     }
 
     /**
      * 每分钟更新配置文件
      */
     @Scheduled(cron = "0 * * * * ?")
-    public void scheduleTask(){
-        storageHandle(properties);
+    public void scheduleTask() {
+        storageHandle();
     }
 
     /**
      * 处理获取配置信息并处理
-     * @param properties 配置信息
      */
-    private void storageHandle(MsFileStorageProperties properties){
+    private void storageHandle() {
+        //获得存储平台 List
+        CopyOnWriteArrayList<FileStorage> list = fileStorageService.getFileStorageList();
+        // 清除原有数据
+        list.clear();
         List<WebDavStorageEntity> webDavStorageList = webDavStorageService.list();
-        if (CollectionUtil.isNotEmpty(webDavStorageList)){
-            List<MsFileStorageProperties.WebDAV> webDAVList = webDavStorageList.stream().map(item->{
-                MsFileStorageProperties.WebDAV webDAV = new MsFileStorageProperties.WebDAV();
-                BeanUtil.copy(item,webDAV);
-                webDAV.setUser(item.getUsername());
-                return webDAV;
+        // 新增WebDAV存储平台
+        if (CollectionUtil.isNotEmpty(webDavStorageList)) {
+            List<WebDavFileStorage> webdavStorageList = webDavStorageList.stream().map(item -> {
+                WebDavFileStorage storage = new WebDavFileStorage();
+                BeanUtil.copy(item, storage);
+                storage.setUser(item.getUsername());
+                return storage;
             }).collect(Collectors.toList());
-            properties.setWebDav(webDAVList);
+            list.addAll(webdavStorageList);
         }
         List<AliOssStorageEntity> aliOssStorageList = aliOssStorageService.list();
-        if (CollectionUtil.isNotEmpty(aliOssStorageList)){
-            List<MsFileStorageProperties.AliyunOss> ossList = aliOssStorageList.stream().map(item->{
-                MsFileStorageProperties.AliyunOss oss = new MsFileStorageProperties.AliyunOss();
-                BeanUtil.copy(item,oss);
+        // 新增阿里云OSS存储平台
+        if (CollectionUtil.isNotEmpty(aliOssStorageList)) {
+            List<AliyunOssFileStorage> ossStorageList = aliOssStorageList.stream().map(item -> {
+                AliyunOssFileStorage oss = new AliyunOssFileStorage();
+                BeanUtil.copy(item, oss);
                 return oss;
             }).collect(Collectors.toList());
-            properties.setAliyunOss(ossList);
+            list.addAll(ossStorageList);
         }
         List<BaiduBosStorageEntity> baiduBosStorageList = baiduBosStorageService.list();
-        if (CollectionUtil.isNotEmpty(baiduBosStorageList)){
-            List<MsFileStorageProperties.BaiduBos> baiduBosList = baiduBosStorageList.stream().map(item->{
-                MsFileStorageProperties.BaiduBos bos = new MsFileStorageProperties.BaiduBos();
-                BeanUtil.copy(item,bos);
+        // 新增百度云BOS存储平台
+        if (CollectionUtil.isNotEmpty(baiduBosStorageList)) {
+            List<BaiduBosFileStorage> bosStorageList = baiduBosStorageList.stream().map(item -> {
+                BaiduBosFileStorage bos = new BaiduBosFileStorage();
+                BeanUtil.copy(item, bos);
                 return bos;
             }).collect(Collectors.toList());
-            properties.setBaiduBos(baiduBosList);
+            list.addAll(bosStorageList);
         }
         List<HuaweiObsStorageEntity> huaweiObsStorageList = huaweiObsStorageService.list();
-        if (CollectionUtil.isNotEmpty(huaweiObsStorageList)){
-            List<MsFileStorageProperties.HuaweiObs> huaweiObsList = huaweiObsStorageList.stream().map(item->{
-                MsFileStorageProperties.HuaweiObs obs = new MsFileStorageProperties.HuaweiObs();
-                BeanUtil.copy(item,obs);
+        // 新增华为云OBS存储平台
+        if (CollectionUtil.isNotEmpty(huaweiObsStorageList)) {
+            List<HuaweiObsFileStorage> obsStorageList = huaweiObsStorageList.stream().map(item -> {
+                HuaweiObsFileStorage obs = new HuaweiObsFileStorage();
+                BeanUtil.copy(item, obs);
                 return obs;
             }).collect(Collectors.toList());
-            properties.setHuaweiObs(huaweiObsList);
+            list.addAll(obsStorageList);
         }
         List<QiniuKodoStorageEntity> qiniuKodoStorageList = qiniuKodoStorageService.list();
-        if (CollectionUtil.isNotEmpty(qiniuKodoStorageList)){
-            List<MsFileStorageProperties.QiniuKodo> qiniuKodoList = qiniuKodoStorageList.stream().map(item->{
-                MsFileStorageProperties.QiniuKodo kodo = new MsFileStorageProperties.QiniuKodo();
-                BeanUtil.copy(item,kodo);
+        // 新增七牛云KODO存储平台
+        if (CollectionUtil.isNotEmpty(qiniuKodoStorageList)) {
+            List<QiniuKodoFileStorage> kodoStorageList = qiniuKodoStorageList.stream().map(item -> {
+                QiniuKodoFileStorage kodo = new QiniuKodoFileStorage();
+                BeanUtil.copy(item, kodo);
                 return kodo;
             }).collect(Collectors.toList());
-            properties.setQiniuKodo(qiniuKodoList);
+            list.addAll(kodoStorageList);
         }
         List<TencentCosStorageEntity> tencentCosStorageList = tencentCosStorageService.list();
-        if (CollectionUtil.isNotEmpty(tencentCosStorageList)){
-            List<MsFileStorageProperties.TencentCos> tencentCosList = tencentCosStorageList.stream().map(item->{
-                MsFileStorageProperties.TencentCos cos = new MsFileStorageProperties.TencentCos();
-                BeanUtil.copy(item,cos);
+        // 新增腾讯云COS存储平台
+        if (CollectionUtil.isNotEmpty(tencentCosStorageList)) {
+            List<TencentCosFileStorage> cosStorageList = tencentCosStorageList.stream().map(item -> {
+                TencentCosFileStorage cos = new TencentCosFileStorage();
+                BeanUtil.copy(item, cos);
                 return cos;
             }).collect(Collectors.toList());
-            properties.setTencentCos(tencentCosList);
+            list.addAll(cosStorageList);
         }
     }
 }

@@ -2,6 +2,7 @@ package tech.msop.data.utils;
 
 import lombok.AllArgsConstructor;
 import tech.msop.core.tool.utils.SpringUtil;
+import tech.msop.data.entity.system.DatabaseEntity;
 import tech.msop.data.entity.system.TaskEntity;
 import tech.msop.data.service.system.DatabaseService;
 
@@ -28,6 +29,16 @@ public class DatabaseUtil {
      * @return 数据库标识
      */
     public static String getDatabaseNameByTask(TaskEntity entity) {
-        return getDatabaseService().getById(entity.getDatabaseId()).getDatabaseName();
+        return getDatabaseByTask(entity).getDatabaseName();
+    }
+
+    /**
+     * 根据任务信息获取数据库标识
+     *
+     * @param entity 数据库ID
+     * @return 数据库标识
+     */
+    public static DatabaseEntity getDatabaseByTask(TaskEntity entity) {
+        return getDatabaseService().getById(entity.getDatabaseId());
     }
 }
