@@ -39,9 +39,13 @@ public interface DataBackupConstant {
     /**
      * 默认备份文件目录
      */
-    String DEFAULT_BACKUP_DIR = "/data/backup";
+    String DEFAULT_BACKUP_DIR = "/data/backup/";
     /**
      * ID 标识
      */
     String ID_FLAG = "id";
+    /**
+     * 默认的CRON表达式，默认每天上午2点执行一次
+     */
+    String DEFAULT_CRON = "0 0 2 * * ? ";
 }

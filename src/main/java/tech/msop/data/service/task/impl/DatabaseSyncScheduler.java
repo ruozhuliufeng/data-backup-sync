@@ -1,10 +1,10 @@
-package tech.msop.data.task;
+package tech.msop.data.service.task.impl;
 
-import lombok.AllArgsConstructor;
-import lombok.SneakyThrows;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import lombok.*;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.scheduling.annotation.Scheduled;
-import org.springframework.stereotype.Component;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
+import org.springframework.stereotype.Service;
 import tech.msop.core.file.storage.FileStorageService;
 import tech.msop.core.tool.constant.StringConstant;
 import tech.msop.core.tool.utils.DateUtil;
@@ -12,7 +12,9 @@ import tech.msop.data.constants.DataBackupConstant;
 import tech.msop.data.entity.system.DatabaseEntity;
 import tech.msop.data.entity.system.TaskEntity;
 import tech.msop.data.enums.DatabaseEnum;
+import tech.msop.data.enums.TaskTypeEnum;
 import tech.msop.data.service.system.TaskService;
+import tech.msop.data.service.task.AbstractSchedulerTask;
 import tech.msop.data.utils.DatabaseUtil;
 import tech.msop.data.utils.StorageUtil;
 
@@ -22,36 +24,71 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * 数据备份与同步任务
+ * 数据库同步
  *
  * @author ruozhuliufeng
  */
-@Component
-@AllArgsConstructor
+@Service
 @Slf4j
-public class DataBackupTask {
-
-    private final FileStorageService fileStorageService;
+@AllArgsConstructor
+public class DatabaseSyncScheduler extends AbstractSchedulerTask {
     private final TaskService taskService;
+    private final FileStorageService fileStorageService;
 
-//    @Scheduled(cron = "0 * * * * ?")
-    public void scheduleTask(){
-        List<TaskEntity> taskList = taskService.list();
-        taskList.forEach(item->{
-            DatabaseEntity database = DatabaseUtil.getDatabaseByTask(item);
-            if (DatabaseEnum.MySQL.getType()==database.getType()){
-                String databaseFile = exportMySQLSql(database,item);
-                log.info("生成的数据库文件："+databaseFile);
-                String platform = StorageUtil.getStorageName(item);
-                assert databaseFile != null;
-                File file = new File(databaseFile);
-                fileStorageService.of(file)
-                        .setName(file.getName())
-                        .setPlatform(platform)
-                        .upload();
-            }
-        });
+    /**
+     * 获取数据库中的任务列表
+     *
+     * @return 任务列表
+     */
+    @Override
+    protected List<TaskEntity> getTaskList() {
+        // 获取任务为同步数据库的所有已启用的任务
+        return taskService.list(Wrappers.<TaskEntity>query().lambda().eq(TaskEntity::getTaskType, TaskTypeEnum.DATABASE_SYNC.getType())
+                .eq(TaskEntity::getStatus, 1));
     }
+
+    /**
+     * 执行任务
+     *
+     * @param task 任务详情
+     */
+    @Override
+    protected void execute(TaskEntity task) {
+        DatabaseEntity database = DatabaseUtil.getDatabaseByTask(task);
+        // 备份MySQL数据库并上传
+        if (DatabaseEnum.MySQL.getType() == database.getType()) {
+            String databaseFile = exportMySQLSql(database, task);
+            log.info("生成的数据库文件：" + databaseFile);
+            String platform = StorageUtil.getStorageName(task);
+            assert databaseFile != null;
+            File file = new File(databaseFile);
+            fileStorageService.of(file)
+                    .setName(file.getName())
+                    .setPlatform(platform)
+                    .upload();
+        }
+    }
+
+    /**
+     * 获取默认的表达式，当配置的CRON表达式异常时，执行默认的表达式
+     *
+     * @return CRON表达式
+     */
+    @Override
+    protected String getDefaultCron() {
+        return DataBackupConstant.DEFAULT_CRON;
+    }
+
+    /**
+     * 更新任务状态
+     *
+     * @param task 状态
+     */
+    @Override
+    protected void updateTaskStatus(TaskEntity task) {
+        taskService.updateById(task);
+    }
+
 
     /**
      * 备份MySQL数据库并返回相关信息

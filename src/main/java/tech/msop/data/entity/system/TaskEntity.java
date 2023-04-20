@@ -92,7 +92,11 @@ public class TaskEntity extends BaseEntity {
      */
     @Column(name="db_name")
     private String dbName;
-
+    /**
+     * 异常信息
+     */
+    @Column(name = "error_message")
+    private String errorMessage;
 
     /**
      * 创建人
