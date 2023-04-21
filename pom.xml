@@ -9,7 +9,7 @@
     </parent>
     <groupId>tech.msop</groupId>
     <artifactId>data-backup-sync</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
     <name>data-backup-sync</name>
     <description>
         数据备份与同步
