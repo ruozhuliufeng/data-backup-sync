@@ -23,7 +23,7 @@ public interface DataBackupConstant {
     /**
      * 连接类
      */
-    String DB_DRIVER_MYSQL_CLASS= "com.mysql.cj.jdbc.Driver";
+    String DB_DRIVER_MYSQL_CLASS = "com.mysql.cj.jdbc.Driver";
     /**
      * 连接用户
      */
@@ -48,4 +48,12 @@ public interface DataBackupConstant {
      * 默认的CRON表达式，默认每天上午2点执行一次
      */
     String DEFAULT_CRON = "0 0 2 * * ? ";
+    /**
+     * 默认的用户名和密码
+     */
+    String DEFAULT_USER_PASSWORD = "admin";
+    /**
+     * 默认的用户角色
+     */
+    String DEFAULT_ROLE = "ROLE_ADMIN";
 }

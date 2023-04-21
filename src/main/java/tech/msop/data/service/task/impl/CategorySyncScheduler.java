@@ -2,6 +2,7 @@ package tech.msop.data.service.task.impl;
 
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import tech.msop.core.file.storage.FileStorageService;
@@ -14,6 +15,7 @@ import tech.msop.data.service.system.TaskService;
 import tech.msop.data.service.task.AbstractSchedulerTask;
 import tech.msop.data.utils.StorageUtil;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.util.List;
 
@@ -21,10 +23,13 @@ import java.util.List;
  * 目录同步
  */
 @Service
+@NoArgsConstructor
 @AllArgsConstructor
 public class CategorySyncScheduler extends AbstractSchedulerTask {
-    private final TaskService taskService;
-    private final FileStorageService fileStorageService;
+    @Resource
+    private TaskService taskService;
+    @Resource
+    private FileStorageService fileStorageService;
 
     /**
      * 获取数据库中的任务列表

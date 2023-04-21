@@ -8,13 +8,17 @@ import tech.msop.data.service.task.impl.CategorySyncScheduler;
 import tech.msop.data.service.task.impl.DatabaseSyncScheduler;
 import tech.msop.data.service.task.impl.FileSyncScheduler;
 
+import javax.annotation.Resource;
+
 @Component
 @Order(1)
-@AllArgsConstructor
 public class SchedulerTaskRunner implements CommandLineRunner {
-    private final FileSyncScheduler fileSyncScheduler;
-    private final DatabaseSyncScheduler databaseSyncScheduler;
-    private final CategorySyncScheduler categorySyncScheduler;
+    @Resource
+    private FileSyncScheduler fileSyncScheduler;
+    @Resource
+    private DatabaseSyncScheduler databaseSyncScheduler;
+    @Resource
+    private CategorySyncScheduler categorySyncScheduler;
     @Override
     public void run(String... args) throws Exception {
         fileSyncScheduler.executeTask();

@@ -18,6 +18,7 @@ import tech.msop.data.service.task.AbstractSchedulerTask;
 import tech.msop.data.utils.DatabaseUtil;
 import tech.msop.data.utils.StorageUtil;
 
+import javax.annotation.Resource;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
@@ -30,10 +31,13 @@ import java.util.List;
  */
 @Service
 @Slf4j
+@NoArgsConstructor
 @AllArgsConstructor
 public class DatabaseSyncScheduler extends AbstractSchedulerTask {
-    private final TaskService taskService;
-    private final FileStorageService fileStorageService;
+    @Resource
+    private TaskService taskService;
+    @Resource
+    private FileStorageService fileStorageService;
 
     /**
      * 获取数据库中的任务列表

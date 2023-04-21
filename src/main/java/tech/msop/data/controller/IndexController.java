@@ -38,4 +38,16 @@ public class IndexController {
         model.setViewName("main");
         return model;
     }
+
+    /**
+     * 获取登录页面
+     *
+     * @param model model
+     * @return ModelAndView
+     */
+    @GetMapping("/login")
+    public ModelAndView login(ModelAndView model) {
+        model.setViewName("login");
+        return model;
+    }
 }

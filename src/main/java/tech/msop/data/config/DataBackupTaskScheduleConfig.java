@@ -10,20 +10,27 @@ import org.springframework.scheduling.annotation.SchedulingConfigurer;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.config.ScheduledTaskRegistrar;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 
 @Configuration
 @Slf4j
-public class ScheduleConfig implements SchedulingConfigurer, AsyncConfigurer {
+public class DataBackupTaskScheduleConfig implements SchedulingConfigurer, AsyncConfigurer {
     @Override
     public void configureTasks(@NotNull ScheduledTaskRegistrar taskRegistrar) {
-        taskRegistrar.setScheduler(taskScheduler());
+        taskRegistrar.setScheduler(threadPoolTaskScheduler());
     }
 
-    @Bean(destroyMethod = "shutdown", name = "taskScheduler")
-    public ThreadPoolTaskScheduler taskScheduler() {
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean(destroyMethod = "shutdown", name = "threadPoolTaskScheduler")
+    public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(10);
         scheduler.setThreadNamePrefix("itemTask-");

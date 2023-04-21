@@ -1,12 +1,8 @@
 package tech.msop.data.service.task;
 
 import cn.hutool.core.collection.CollectionUtil;
-import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import org.jetbrains.annotations.NotNull;
 import org.springframework.scheduling.Trigger;
-import org.springframework.scheduling.TriggerContext;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.stereotype.Component;
@@ -14,7 +10,6 @@ import tech.msop.data.entity.system.TaskEntity;
 import tech.msop.data.enums.TaskStatusEnum;
 
 import javax.annotation.Resource;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -24,7 +19,6 @@ import java.util.List;
  */
 @Component
 @Slf4j
-@Data
 public abstract class AbstractSchedulerTask implements SchedulerTaskJob {
     @Resource
     private ThreadPoolTaskScheduler threadPoolTaskScheduler;
