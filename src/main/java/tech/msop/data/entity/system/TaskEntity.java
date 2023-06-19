@@ -19,7 +19,6 @@ import java.util.Date;
  *
  * @author ruozhuliufeng
  */
-@EqualsAndHashCode(callSuper = true)
 @Data
 @Entity
 @Table(name = "tb_task")

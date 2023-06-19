@@ -33,7 +33,8 @@ public class DataBackupTaskScheduleConfig implements SchedulingConfigurer, Async
     public ThreadPoolTaskScheduler threadPoolTaskScheduler() {
         ThreadPoolTaskScheduler scheduler = new ThreadPoolTaskScheduler();
         scheduler.setPoolSize(10);
-        scheduler.setThreadNamePrefix("itemTask-");
+        scheduler.setRemoveOnCancelPolicy(true);
+        scheduler.setThreadNamePrefix("BackupTaskPool-");
         scheduler.setAwaitTerminationSeconds(600);
         scheduler.setWaitForTasksToCompleteOnShutdown(true);
         return scheduler;

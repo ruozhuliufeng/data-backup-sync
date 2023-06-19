@@ -24,27 +24,11 @@ import java.util.List;
  *
  * @author ruozhuliufeng
  */
-@Service
-@NoArgsConstructor
+@Service("fileSyncScheduler")
 @AllArgsConstructor
 public class FileSyncScheduler extends AbstractSchedulerTask {
-    @Resource
-    private TaskService taskService;
-    @Resource
-    private FileStorageService fileStorageService;
-
-    /**
-     * 获取数据库中的任务列表
-     *
-     * @return 任务列表
-     */
-    @Override
-    protected List<TaskEntity> getTaskList() {
-        // 获取任务为同步文件的所有已启用的任务
-        return taskService.list(Wrappers.<TaskEntity>query().lambda().eq(TaskEntity::getTaskType, TaskTypeEnum.FILE_SYNC.getType())
-                .eq(TaskEntity::getStatus, 1));
-    }
-
+    private final TaskService taskService;
+    private final FileStorageService fileStorageService;
     /**
      * 执行任务
      *

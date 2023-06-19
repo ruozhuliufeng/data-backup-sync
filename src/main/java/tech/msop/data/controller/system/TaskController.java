@@ -78,7 +78,7 @@ public class TaskController {
      */
     @PostMapping("/save")
     public Result save(@Valid @RequestBody TaskEntity entity) {
-        taskService.save(entity);
+        taskService.saveTask(entity);
         return Result.succeed();
     }
 
@@ -90,7 +90,7 @@ public class TaskController {
      */
     @PostMapping("/update")
     public Result update(@Valid @RequestBody TaskEntity entity) {
-        taskService.updateById(entity);
+        taskService.updateTask(entity);
         return Result.succeed();
     }
 
@@ -103,6 +103,8 @@ public class TaskController {
     @PostMapping("/submit")
     public Result submit(@Valid @RequestBody TaskEntity entity) {
         taskService.saveOrUpdate(entity);
+        // 处理定时任务信息
+        taskService.submit(entity);
         return Result.succeed();
     }
 
@@ -115,6 +117,7 @@ public class TaskController {
     @PostMapping("/remove")
     public Result remove(@ApiParam(value = "主键集合", required = true) @RequestParam String ids) {
         taskService.deleteLogic(Func.toLongList(ids));
+        taskService.removeByIdList(Func.toLongList(ids));
         return Result.succeed();
     }
 
@@ -127,5 +130,18 @@ public class TaskController {
     public Result<List<Option>> queryStorageOptionList() {
         List<Option> list = taskService.queryStorageOptionList();
         return Result.succeed(MenuTreeUtil.getTree(list, DataBackupConstant.ID_FLAG));
+    }
+
+    /**
+     * 启动/关闭 定时任务
+     *
+     * @param id     任务ID
+     * @param status 状态 0：停止 1：开启
+     * @return Result
+     */
+    @GetMapping("/change/status/{id}/{status}")
+    public Result changeStatus(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
+        taskService.changeStatus(id, status);
+        return Result.succeed();
     }
 }

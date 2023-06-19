@@ -29,27 +29,12 @@ import java.util.List;
  *
  * @author ruozhuliufeng
  */
-@Service
+@Service("databaseSyncScheduler")
 @Slf4j
-@NoArgsConstructor
 @AllArgsConstructor
 public class DatabaseSyncScheduler extends AbstractSchedulerTask {
-    @Resource
-    private TaskService taskService;
-    @Resource
-    private FileStorageService fileStorageService;
-
-    /**
-     * 获取数据库中的任务列表
-     *
-     * @return 任务列表
-     */
-    @Override
-    protected List<TaskEntity> getTaskList() {
-        // 获取任务为同步数据库的所有已启用的任务
-        return taskService.list(Wrappers.<TaskEntity>query().lambda().eq(TaskEntity::getTaskType, TaskTypeEnum.DATABASE_SYNC.getType())
-                .eq(TaskEntity::getStatus, 1));
-    }
+    private final TaskService taskService;
+    private final FileStorageService fileStorageService;
 
     /**
      * 执行任务
