@@ -125,6 +125,7 @@ var vm = new Vue({
         remove(id) {
             if (id === null) {
                 id = this.multipleSelection.join(',')
+                console.log("数据ID列表：" + id)
             }
             const url = '/system/task/remove?ids=' + id
             axios.post(url).then(res => {

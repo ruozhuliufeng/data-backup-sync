@@ -20,9 +20,7 @@ public abstract class AbstractSchedulerTask implements SchedulerTaskJob {
     public void executeTask(TaskEntity task) {
         String cron = task.getTaskCron();
         // 执行相关业务
-        Runnable taskRunnable = () -> {
-            execute(task);
-        };
+        execute(task);
         Trigger trigger = triggerContext -> {
             CronTrigger cronTrigger;
             try {

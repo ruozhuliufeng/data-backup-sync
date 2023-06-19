@@ -28,13 +28,13 @@ import java.util.List;
 public class SchedulerTaskRunner implements CommandLineRunner {
     private final CronTaskRegister cronTaskRegister;
     private final TaskService taskService;
-
     @Override
     public void run(String... args) throws Exception {
         log.info("开始加载定时任务....");
 
-        // 获取数据库中状态正常的定时任务
+        // 获取数据库中状态正常、且状态为运行中的定时任务
         List<TaskEntity> taskList = taskService.list(Wrappers.<TaskEntity>query().eq("status", "1")
+                .eq("task_status", 1)
                 .eq("is_deleted", 0)
         );
         if (!CollectionUtil.isEmpty(taskList)) {
@@ -43,18 +43,18 @@ public class SchedulerTaskRunner implements CommandLineRunner {
                 if (TaskTypeEnum.FILE_SYNC.getType() == task.getTaskType()) {
 
                     log.info("添加文件同步");
-                    scheduledTask = new SchedulingRunnable(FileSyncScheduler.class,task);
+                    scheduledTask = new SchedulingRunnable(FileSyncScheduler.class, task);
                 } else if (TaskTypeEnum.CATEGORY_SYNC.getType() == task.getTaskType()) {
                     // 文件夹同步
                     log.info("添加文件夹同步任务");
-                    scheduledTask = new SchedulingRunnable(CategorySyncScheduler.class,task);
+                    scheduledTask = new SchedulingRunnable(CategorySyncScheduler.class, task);
                 } else {
                     // 数据库同步
                     log.info("添加数据库同步任务");
-                    scheduledTask = new SchedulingRunnable(DatabaseSyncScheduler.class,task);
+                    scheduledTask = new SchedulingRunnable(DatabaseSyncScheduler.class, task);
                 }
-                if (!ObjectUtil.isEmpty(scheduledTask)){
-                    cronTaskRegister.addCronTask(scheduledTask,task.getTaskCron());
+                if (!ObjectUtil.isEmpty(scheduledTask)) {
+                    cronTaskRegister.addCronTask(scheduledTask, task.getTaskCron());
                 }
             });
             log.info("定时任务已加载完毕!");

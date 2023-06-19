@@ -79,7 +79,7 @@ public class TaskServiceImpl extends SuperServiceImpl<TaskMapper, TaskEntity>
             cronTaskRegister.removeCronTask(scheduledTask);
         }
         // 如果状态为进行中，添加新的定时任务
-        if (TaskStatusEnum.PROCEED.getStatus() == taskEntity.getStatus()) {
+        if (TaskStatusEnum.PROCEED.getStatus() == taskEntity.getTaskStatus()) {
             cronTaskRegister.addCronTask(scheduledTask, task.getTaskCron());
         }
     }
@@ -100,7 +100,7 @@ public class TaskServiceImpl extends SuperServiceImpl<TaskMapper, TaskEntity>
             cronTaskRegister.removeCronTask(scheduledTask);
         }
         // 如果状态为进行中，添加新的定时任务
-        if (TaskStatusEnum.PROCEED.getStatus() == taskEntity.getStatus()) {
+        if (TaskStatusEnum.PROCEED.getStatus() == taskEntity.getTaskStatus()) {
             cronTaskRegister.addCronTask(scheduledTask, task.getTaskCron());
         }
     }

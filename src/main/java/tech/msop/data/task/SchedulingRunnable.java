@@ -21,10 +21,13 @@ public class SchedulingRunnable implements Runnable {
     private TaskEntity task;
     @Override
     public void run() {
-        log.info("定时任务开始执行 - ClassName:{}",clazz.getName());
+        log.info("定时任务开始执行 - ClassName:{},- Task:{}",clazz.getName(),task);
+        long startTime = System.currentTimeMillis();
         try {
             SchedulerTaskJob job = SpringUtil.getBean(clazz);
             job.executeTask(task);
+            long cost = System.currentTimeMillis() - startTime;
+            log.info("定时任务执行结束,耗时:{}毫秒",cost);
         }catch (Exception e){
             log.error("定时任务执行异常 - 异常信息:{}",e.getMessage());
         }
@@ -39,11 +42,11 @@ public class SchedulingRunnable implements Runnable {
             return false;
         }
         SchedulingRunnable that = (SchedulingRunnable) obj;
-        return this.clazz == that.clazz;
+        return Objects.equals(this.task.getId(), that.task.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hashCode(clazz);
+        return Objects.hash(clazz,task.getId());
     }
 }
