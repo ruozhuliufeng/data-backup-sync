@@ -27,7 +27,7 @@ public class DataBackupSyncApplication {
                 && !ObjectUtils.isEmpty(dbPassword)) {
             // 暂时只支持MySQL数据库
             Properties props = System.getProperties();
-            String dbUrl = String.format(DatabaseEnum.MySQL.getJdbc(),dbHost,dbPort,dbUser);
+            String dbUrl = String.format(DatabaseEnum.MySQL.getJdbc(),dbHost,dbPort,dbName);
             props.setProperty("spring.datasource.url",dbUrl);
             props.setProperty("spring.datasource.driver-class-name",DataBackupConstant.DB_DRIVER_MYSQL_CLASS);
             props.setProperty("spring.datasource.username",dbUser);
